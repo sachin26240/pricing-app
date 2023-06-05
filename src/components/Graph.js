@@ -1,16 +1,18 @@
 import React from "react";
+import { useState, useEffect } from "react";
 
-export const Graph = (props) => {
+export const Graph = ({ data }) => {
   const mainImgStyle = {
     borderTopRightRadius: "40px",
     borderBottomLeftRadius: "40px",
     width: "80%",
   };
+
   return (
-    <div className="container my-3">
+    <div className="container my-2">
       <div className="row">
         <div className="col-md-6 image-container centered position-relative">
-        <img
+          <img
             src="/zigzag4.png"
             alt="Image"
             className="img-fluid position-absolute top-0 start-15"
@@ -33,9 +35,7 @@ export const Graph = (props) => {
             }}
           />
         </div>
-        <div className="col-md-6 d-flex align-items-center">
-            Sachin
-        </div>
+        <div className="col-md-6 d-flex align-items-center" id="chartContainer"></div>
       </div>
     </div>
   );

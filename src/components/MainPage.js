@@ -32,7 +32,7 @@ export const MainPage = () => {
           <div>
             <h1 className="title">We Price Right</h1>
             <h4>Discover our flexible pricing options for every business</h4>
-            <div>
+            <div className="mb-2">
               <button className="btn btn-outline-secondary mx-2" type="submit">
                   Login
                 </button>
