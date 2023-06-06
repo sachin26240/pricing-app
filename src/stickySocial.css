@@ -2,11 +2,22 @@
 .icon-bar {
     position: fixed;
     top: 30%;
-    right: 0;
+    right: -40px;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+    z-index: 9999;
+    transition: right 0.3s ease;
 }
+
+.icon-bar.active {
+    right: 0; /* Move the bar to the visible position */
+  }
+/* @media (max-width: 700px) {
+    .icon-bar {
+      display: none;
+    }
+  } */
 
 /* Style the icon bar links */
 .icon-bar a {

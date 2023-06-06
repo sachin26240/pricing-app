@@ -1,5 +1,6 @@
 import React from "react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
+import { useState } from "react";
 import "../stickySocial.css";
 
 export const MainPage = () => {
@@ -19,6 +20,16 @@ export const MainPage = () => {
     width: "80%",
   };
 
+  const [showSocialMediaBar, setShowSocialMediaBar] = useState(false);
+
+  const handleMouseEnter = () => {
+    setShowSocialMediaBar(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowSocialMediaBar(false);
+  };
+
   // const mediaStyle = {
   //   position: "sticky",
   //   top: 0,
@@ -28,7 +39,7 @@ export const MainPage = () => {
   return (
     <div className="container my-3 bg-image" style={divStyle}>
       <div className="row">
-        <div className="col-md-6 d-flex align-items-center">
+        <div className="col-md-6 my-3 d-flex align-items-center">
           <div>
             <h1 className="title">We Price Right</h1>
             <h4>Discover our flexible pricing options for every business</h4>
@@ -43,7 +54,7 @@ export const MainPage = () => {
             
           </div>
         </div>
-        <div className="col-md-6 image-container centered position-relative">
+        <div className="col-md-6 my-3 image-container centered position-relative">
           <img
             className="mx-auto d-block img-fluid"
             src="/home.jpg"
@@ -60,7 +71,10 @@ export const MainPage = () => {
           />
         </div>
       </div>
-      <div className="icon-bar">
+      <div className={`icon-bar ${showSocialMediaBar ? 'active' : ''}`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <a href="#" className="facebook">
           <FaFacebook />
         </a>

@@ -3,11 +3,14 @@ import "./App.css";
 import Header from "./components/Header";
 import { MainPage } from "./components/MainPage";
 import { Graph } from "./components/Graph";
+import { Table } from "./components/Table";
 import { useState, useEffect } from "react";
 import Highcharts from "highcharts";
 import HCExporting from "highcharts/modules/exporting";
 import HCExportData from "highcharts/modules/export-data";
 import HCAccessibility from "highcharts/modules/accessibility";
+import { tab } from "@testing-library/user-event/dist/tab";
+
 
 // Initialize required Highcharts modules
 HCExporting(Highcharts);
@@ -16,11 +19,12 @@ HCAccessibility(Highcharts);
 
 function App() {
   const [graphData, setGraphData] = useState(null);
+  const [tableData, setTableData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/mainvia");
+        const response = await fetch("http://13.233.112.16:5000/mainvia");
 
         const data = await response.text();
         // console.log("sachin",data);
@@ -33,8 +37,33 @@ function App() {
         console.error("Error fetching JSON data:", error);
       }
     };
+
+
+    const fetchData1 = async () => {
+      try {
+        const response = await fetch("http://13.233.112.16:5000/seatinfo");
+
+        const data1 = await response.text();
+        // console.log("sachin",data);
+        // alert("sachin",data);
+        const gData1 = JSON.parse(data1);
+        // console.log(gData.data[0]);
+        setTableData(gData1);
+        console.log("SachinTable", tableData);
+      } catch (error) {
+        console.error("Error fetching JSON data:", error);
+      }
+    };
+
     if (!graphData) {
       fetchData();
+    }
+    if(!tableData){
+      fetchData1();
+    }
+
+    if(tableData){
+      console.log("sachinInTable:",tableData)
     }
     // ############################
     if (graphData) {
@@ -51,6 +80,9 @@ function App() {
 
       // Create the Highcharts chart
       Highcharts.chart("chartContainer", {
+        chart: {
+          type: 'bar',
+        },
         title: {
           text: "Booking History",
         },
@@ -76,7 +108,7 @@ function App() {
       });
     }
     // console.log(jsonData.data)
-  }, [graphData]);
+  }, [graphData,tableData]);
 
   if (!graphData) {
     return <div>Loading...</div>;
@@ -87,6 +119,7 @@ function App() {
       <Header title={"Pricing App"} searchBar={true} />
       <MainPage />
       <Graph />
+      <Table tableData={tableData}/>
     </>
   );
 }
